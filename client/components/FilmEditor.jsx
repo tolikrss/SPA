@@ -163,6 +163,13 @@ const FilmEditor = React.createClass({
                             Find by stars
                         </button>
                 </div>
+                <br/>
+                <div>
+                    <form id="test_form" action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
+                        <input type="file" name="filetoupload"/><br/>
+                        <input className='FilmEditor__button' type="submit"/>
+                    </form>
+                </div>
             </div>
         );
     }
