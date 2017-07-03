@@ -1,17 +1,17 @@
 import React from 'react';
 
-import NotesStore from '../stores/NotesStore';
-import NotesActions from '../actions/NotesActions';
+import FilmsStore from '../stores/FilmsStore';
+import FilmsActions from '../actions/FilmsActions';
 
-import NoteEditor from './NoteEditor.jsx';
-import NotesGrid from './NotesGrid.jsx';
+import FilmEditor from './FilmEditor.jsx';
+import FilmsGrid from './FilmsGrid.jsx';
 
 import './App.less';
 
 function getStateFromFlux() {
     return {
-        isLoading: NotesStore.isLoading(),
-        notes: NotesStore.getNotes()
+        isLoading: FilmsStore.isLoading(),
+        films: FilmsStore.getFilms()
     };
 }
 
@@ -21,31 +21,31 @@ const App = React.createClass({
     },
 
     componentWillMount() {
-        NotesActions.loadNotes();
+        FilmsActions.loadFilms();
     },
 
     componentDidMount() {
-        NotesStore.addChangeListener(this._onChange);
+        FilmsStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount() {
-        NotesStore.removeChangeListener(this._onChange);
+        FilmsStore.removeChangeListener(this._onChange);
     },
 
-    handleNoteDelete(note) {
-        NotesActions.deleteNote(note.id);
+    handleFilmDelete(film) {
+        FilmsActions.deleteFilm(film.id);
     },
 
-    handleNoteAdd(noteData) {
-        NotesActions.createNote(noteData);
+    handleFilmAdd(filmData) {
+        FilmsActions.createFilm(filmData);
     },
 
     render() {
         return (
             <div className='App'>
-                <h2 className='App__header'>NotesApp</h2>
-                <NoteEditor onNoteAdd={this.handleNoteAdd} />
-                <NotesGrid notes={this.state.notes} onNoteDelete={this.handleNoteDelete} />
+                <h2 className='App__header'>FilmsApp</h2>
+                <FilmEditor onFilmAdd={this.handleFilmAdd} />
+                <FilmsGrid films={this.state.films} onFilmDelete={this.handleFilmDelete} />
             </div>
         );
     },

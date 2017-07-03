@@ -3,15 +3,15 @@ import axios from 'axios';
 import { apiPrefix } from '../../etc/config.json';
 
 export default {
-    listNotes() {
-        return axios.get(`${apiPrefix}/notes`);
+    listFilms() {
+        return axios.get(`${apiPrefix}/films`);
     },
 
-    createNote(data) {
-        return axios.post(`${apiPrefix}/notes`, data);
+    createFilm(data) {
+        return axios.post(`${apiPrefix}/films`, data);
     },
 
-    deleteNote(noteId) {
-        return axios.delete(`${apiPrefix}/notes/${noteId}`);
+    deleteFilm(filmId) {
+        return axios.delete(`${apiPrefix}/films/${filmId}`);
     }
 }

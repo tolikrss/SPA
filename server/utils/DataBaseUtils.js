@@ -1,30 +1,32 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
+import '../models/Film';
 
 import config from '../../etc/config.json';
 
-import '../models/Note';
+const Film = mongoose.model('Film');
 
-const Note = mongoose.model('Note');
-
-export function setUpConnection() {
+export function setUpConnection() { //подключение к БД
     mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
 }
 
-export function listNotes(id) {
-    return Note.find();
+export function listFilms() { //получить список всех фильмов
+    return Film.find();
 }
 
-export function createNote(data) {
-    const note = new Note({
+export function createFilm(data) { //добавить фильм в базу
+    const film = new Film({
         title: data.title,
-        text: data.text,
-        createdAt: new Date()
+        releaseYear: data.releaseYear,
+        format: data.format,
+        stars: data.stars
     });
 
-    return note.save();
+    return film.save(); //сохранение в базу
 }
 
-export function deleteNote(id) {
-    return Note.findById(id).remove();
+export function deleteFilm(id) { //удаление фильма
+    return Film.findById(id).remove();
 }
 
+//если базы нет созданой, то при запросе она создастся

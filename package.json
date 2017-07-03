@@ -1,15 +1,15 @@
 {
-  "name": "NotesApp",
+  "name": "FilmsApp",
   "version": "0.0.1",
-  "description": "Notes application",
+  "description": "films application",
   "scripts": {
     "server": "babel-node server/app.js",
-    "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0"
+    "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0"
   },
   "author": {
-    "name": "Kateryna Porshnieva",
-    "email": "k.porshnieva@gmail.com",
-    "url": "https://github.com/krambertech"
+    "name": "Anatoliy Lakhno",
+    "email": "tolikrss@gmail.com",
+    "url": "https://github.com/tolikrss"
   },
   "dependencies": {
     "axios": "^0.9.1",
@@ -19,6 +19,7 @@
     "events": "^1.1.0",
     "express": "*",
     "flux": "^2.1.1",
+    "formidable": "^1.1.1",
     "jquery": "*",
     "keymirror": "^0.1.1",
     "less": "^2.6.0",
