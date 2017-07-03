@@ -45,6 +45,14 @@ app.get('/films', (req, res) => {
     db.listFilms().then((data) => res.send(data));
 });
 
+app.get('/films/title/:id', (req, res) => { //поиск фильма по заголовку
+    db.listFilmsFindTitle(req.params.id).then((data) => res.send(data));
+});
+
+app.get('/films/stars/:id', (req, res) => { //поиск фильма по актеру
+    db.listFilmsFindStars(req.params.id).then((data) => res.send(data));
+});
+
 app.post('/films', (req, res) => {
     db.createFilm(req.body).then((data) => res.send(data));
 });

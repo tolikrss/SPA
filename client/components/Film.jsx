@@ -26,7 +26,14 @@ const Film = React.createClass({
                 {
                     this.props.format
                     ?
-                        <h4 className='Film__format'>Format: {this.props.format}</h4>
+                        <h4 className='Film__title'>Format: {this.props.format}</h4>
+                    :
+                        null
+                }
+                {
+                    this.props.format
+                    ?
+                        <h4 className='Film__title'>Stars: {this.props.stars.join(', ')}</h4>
                     :
                         null
                 }

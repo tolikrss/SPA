@@ -9,7 +9,7 @@ const FilmsGrid = React.createClass({
     render() {
         const masonryOptions = {
             itemSelector: '.Film',
-            columnWidth: 250,
+            columnWidth: 1000,
             gutter: 10,
             isFitWidth: true
         };
@@ -26,6 +26,7 @@ const FilmsGrid = React.createClass({
                             title={film.title}
                             releaseYear={film.releaseYear}
                             format={film.format}
+                            stars={film.stars}
                             onDelete={this.props.onFilmDelete.bind(null, film)}
                         >
                             {/*{film.text}*/}

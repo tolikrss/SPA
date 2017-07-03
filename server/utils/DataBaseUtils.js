@@ -11,8 +11,16 @@ export function setUpConnection() { //подключение к БД
 }
 
 export function listFilms() { //получить список всех фильмов
-    return Film.find();
-}
+    return Film.find().sort({ title: 1 }); //return Film.find(); //work
+} //=====================================================================
+
+export function listFilmsFindTitle(param) { //получить список всех фильмов c поисковым параметром param, localhost:8080/films/test (test-поисковый параметр)
+    return Film.find({ title: { $regex: param } }).sort({ title: 1 });
+} //=====================================================================
+
+export function listFilmsFindStars(param) {
+    return Film.find({ stars: { $regex: param } }).sort({ title: 1 });
+} //=====================================================================
 
 export function createFilm(data) { //добавить фильм в базу
     const film = new Film({
