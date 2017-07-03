@@ -57,7 +57,7 @@ const FilmEditor = React.createClass({
             format: this.state.format,
             stars: this.state.starsString.split(',')
         };
-
+        console.log('handleFilmAdd() from FilmEditor.jsx worked');
         this.props.onFilmAdd(newFilm);
         this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
     },
@@ -125,7 +125,7 @@ const FilmEditor = React.createClass({
                     <button
                         className='FilmEditor__button'
                         disabled={this.state.text}
-                        onClick={this.handleFilmFindTitle}
+                        onClick={this.handleFilmAdd}
                     >
                         Add
                     </button>
@@ -165,7 +165,7 @@ const FilmEditor = React.createClass({
                 </div>
                 <br/>
                 <div>
-                    <form id="test_form" action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
+                    <form className="file_upload" id="test_form" action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
                         <input type="file" name="filetoupload"/><br/>
                         <input className='FilmEditor__button' type="submit"/>
                     </form>

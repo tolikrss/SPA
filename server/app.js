@@ -69,7 +69,9 @@ app.post('/upload', function(req, res) {
     // rename it to it's orignal name
     form.on('file', function(field, file) {
         fs.rename(file.path, path.join(form.uploadDir, file.name));
+        console.log(file.path);
     });
+
     // log any errors that occur
     form.on('error', function(err) {
         console.log('An error has occured: \n' + err);
