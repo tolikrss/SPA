@@ -34,6 +34,40 @@ const FilmActions = {
             );
     },
 
+    findFilmByTitle(title) {
+        console.log('findFilmByTitle in FilmsActions.js worked. title - ' + title);
+        api.listFindByTitleFilms(title)
+            .then(({ data }) =>
+                AppDispatcher.dispatch({
+                    type: Constants.LOAD_FILMS_SUCCESS,
+                    films: data
+                })
+            )
+            .catch(err =>
+                AppDispatcher.dispatch({
+                    type: Constants.LOAD_FILMS_FAIL,
+                    error: err
+                })
+            );
+    },
+
+    findFilmByStars(stars) {
+        console.log('findFilmByStars in FilmsActions.js worked. stars - ' + stars);
+        api.listFindByStarsFilms(stars)
+            .then(({ data }) =>
+                AppDispatcher.dispatch({
+                    type: Constants.LOAD_FILMS_SUCCESS,
+                    films: data
+                })
+            )
+            .catch(err =>
+                AppDispatcher.dispatch({
+                    type: Constants.LOAD_FILMS_FAIL,
+                    error: err
+                })
+            );
+    },
+
     deleteFilm(filmId) {
         api.deleteFilm(filmId)
             .then(() =>

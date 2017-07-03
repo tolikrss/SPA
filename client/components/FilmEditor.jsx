@@ -8,8 +8,30 @@ const FilmEditor = React.createClass({
             title: '',
             releaseYear: 0,
             format: '',
-            starsString: ''
+            starsString: '',
+            findByTitle: '',
+            findByStars: ''
         };
+    },
+
+    handleFindByStars() {
+        const stars = this.state.findByStars;
+        this.props.onFindByStars(stars);
+        this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
+    },
+
+    handleFindByStarsChange(event) {
+        this.setState({ findByStars: event.target.value });
+    },
+
+    handleFindByTitle() {
+        const title = this.state.findByTitle;
+        this.props.onFindByTitle(title);
+        this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
+    },
+
+    handleFindByTitleChange(event) {
+        this.setState({ findByTitle: event.target.value });
     },
 
     handleStarsChange(event) {
@@ -37,7 +59,7 @@ const FilmEditor = React.createClass({
         };
 
         this.props.onFilmAdd(newFilm);
-        this.setState({ title: '', releaseYear: '', format: '', starsString: '' });
+        this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
     },
 
     render() {
@@ -103,10 +125,43 @@ const FilmEditor = React.createClass({
                     <button
                         className='FilmEditor__button'
                         disabled={this.state.text}
-                        onClick={this.handleFilmAdd}
+                        onClick={this.handleFilmFindTitle}
                     >
                         Add
                     </button>
+                </div>
+                <hr/>
+                <div>
+                        <input
+                        type='text'
+                        className='FilmEditor__title'
+                        placeholder='Enter title'
+                        value={this.state.findByTitle}
+                        onChange={this.handleFindByTitleChange}
+                        />
+                        <button
+                            className='FilmEditor__button'
+                            disabled={false}
+                            onClick={this.handleFindByTitle}
+                        >
+                            Find by title
+                        </button>
+                </div>
+                <div>
+                        <input
+                        type='text'
+                        className='FilmEditor__title'
+                        placeholder='Enter title'
+                        value={this.state.findByStars}
+                        onChange={this.handleFindByStarsChange}
+                        />
+                        <button
+                            className='FilmEditor__button'
+                            disabled={false}
+                            onClick={this.handleFindByStars}
+                        >
+                            Find by stars
+                        </button>
                 </div>
             </div>
         );
