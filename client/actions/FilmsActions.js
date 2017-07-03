@@ -4,6 +4,16 @@ import Constants from '../constants/AppConstants';
 import api from '../api';
 
 const FilmActions = {
+    uploadFile({ file, name }) {
+        api.uploadFile({ file, name }) 
+            .then(() =>
+                console.log('uploadFile() from FilmActions.js without error. name - ' + name)
+            )
+            .catch(err =>
+                console.error(err)
+            );
+    },
+
     loadFilms() {
         AppDispatcher.dispatch({
             type: Constants.LOAD_FILMS_REQUEST

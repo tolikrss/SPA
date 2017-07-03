@@ -14,6 +14,14 @@ const FilmEditor = React.createClass({
         };
     },
 
+    handleFileUpload(e) { //{ file }
+        console.log('handleFileUpload() in FilmEditor.jsx worked');
+        const file = e.target.files[0];
+        this.props.onUploadRequest({
+            file,
+            name: 'Awesome Cat Pic'
+        })
+    },
     handleFindByStars() {
         const stars = this.state.findByStars;
         this.props.onFindByStars(stars);
@@ -165,10 +173,15 @@ const FilmEditor = React.createClass({
                 </div>
                 <br/>
                 <div>
-                    <form className="file_upload" id="test_form" action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
-                        <input type="file" name="filetoupload"/><br/>
-                        <input className='FilmEditor__button' type="submit"/>
-                    </form>
+                        <input type="file" onChange={this.handleFileUpload}/>
+                        <br/>
+                        {/*<button
+                            className='FilmEditor__button'
+                            disabled={false}
+                            onClick={this.handleFindByStars} //=========
+                        >
+                            Upload films
+                        </button>*/}
                 </div>
             </div>
         );

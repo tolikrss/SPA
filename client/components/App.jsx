@@ -50,11 +50,16 @@ const App = React.createClass({
         FilmsActions.findFilmByStars(stars);
     },
 
+    handleUploadRequest({ file, name }) {
+        console.log('handleUploadRequest in app.jsx worked. name - ' + name);
+        FilmsActions.uploadFile({ file, name });
+    },
+
     render() {
         return (
             <div className='App'>
                 <h2 className='App__header'>FilmsApp</h2>
-                <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars}/>
+                <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest}/>
                 <FilmsGrid films={this.state.films} onFilmDelete={this.handleFilmDelete} />
             </div>
         );

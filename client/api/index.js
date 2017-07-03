@@ -3,6 +3,19 @@ import axios from 'axios';
 import { apiPrefix } from '../../etc/config.json';
 
 export default {
+    uploadFile({ file, name }) {
+        console.log('uploadFile() in api/index.js worked. name - ' + name);
+        let data = new FormData();
+        data.append('file', file);
+        data.append('name', name);
+        return axios.post(`${apiPrefix}/upload`, data);
+        // return (dispatch) => {
+        //     axios.post(`${apiPrefix}/upload`, data)
+        //     .then(response => dispatch(uploadSuccess(response))
+        //     .catch(error => dispatch(uploadFail(error));
+        // };
+    },
+
     listFilms() {
         return axios.get(`${apiPrefix}/films`);
     },

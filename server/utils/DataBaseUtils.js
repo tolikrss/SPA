@@ -15,7 +15,7 @@ export function listFilms() { //получить список всех филь�
 } //=====================================================================
 
 export function listFilmsFindTitle(param) { //получить список всех фильмов c поисковым параметром param, localhost:8080/films/test (test-поисковый параметр)
-    return Film.find({ title: { $regex: param } }).sort({ title: 1 });
+    return Film.find({ title: { $regex: param } }).sort({ title: 1 }); //title: /^Antonio$/i
 } //=====================================================================
 
 export function listFilmsFindStars(param) {
