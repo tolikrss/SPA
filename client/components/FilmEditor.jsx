@@ -6,7 +6,7 @@ const FilmEditor = React.createClass({
     getInitialState() {
         return {
             title: '',
-            releaseYear: 0,
+            releaseYear: '',
             format: '',
             starsString: '',
             findByTitle: '',
@@ -73,115 +73,116 @@ const FilmEditor = React.createClass({
     render() {
         return (
             <div className='FilmEditor'>
-                <input
-                    type='text'
-                    className='FilmEditor__title'
-                    placeholder='Enter title'
-                    value={this.state.title}
-                    onChange={this.handleTitleChange}
-                />
-                <input
-                    type='number'
-                    className='FilmEditor__title'
-                    placeholder='Enter release year'
-                    value={this.state.releaseYear}
-                    onChange={this.handleReleaseYearChange}
-                />
-                <label>
-                    <input 
-                        type="radio" name="address" 
-                        value="VHS"  
-                        checked={this.state.format === "VHS"} 
-                        onChange={this.handleFormatChange} 
-                    />
-                    VHS
-                </label>
-                <label>
-                    <input 
-                        type="radio" name="address" 
-                        value="DVD"  
-                        checked={this.state.format === "DVD"} 
-                        onChange={this.handleFormatChange} 
-                    />
-                    DVD
-                </label>
-                <label>
-                    <input 
-                        type="radio" name="address" 
-                        value="Blu-Ray"  
-                        checked={this.state.format === "Blu-Ray"} 
-                        onChange={this.handleFormatChange} 
-                    />
-                    Blu-Ray
-                </label>
-                
-                <textarea
-                    placeholder='Enter stars'
-                    rows={5}
-                    className='FilmEditor__text'
-                    value={this.state.starsString}
-                    onChange={this.handleStarsChange}
-                />
-                {/*<textarea
-                    placeholder='Enter stars'
-                    rows={5}
-                    className='FilmEditor__text'
-                    value={this.state.stars}
-                    onChange={this.handleStarsChange}
-                />*/}
-                <div className='FilmEditor__footer'>
-                    <button
-                        className='FilmEditor__button'
-                        disabled={this.state.text}
-                        onClick={this.handleFilmAdd}
-                    >
-                        Add
-                    </button>
-                </div>
-                <hr/>
-                <div>
-                        <input
+                <div className="FilmEditor__left">
+                    <input
                         type='text'
                         className='FilmEditor__title'
                         placeholder='Enter title'
-                        value={this.state.findByTitle}
-                        onChange={this.handleFindByTitleChange}
+                        value={this.state.title}
+                        onChange={this.handleTitleChange}
+                    />
+                    <input
+                        type='number'
+                        className='FilmEditor__title'
+                        placeholder='Enter release year'
+                        value={this.state.releaseYear}
+                        onChange={this.handleReleaseYearChange}
+                    />
+                    <label className="FilmEditor__radio-button">
+                        <input 
+                            type="radio" name="address" 
+                            value="VHS"  
+                            checked={this.state.format === "VHS"} 
+                            onChange={this.handleFormatChange} 
+                        />
+                        VHS
+                    </label>
+                    <label className="FilmEditor__radio-button">
+                        <input 
+                            type="radio" name="address" 
+                            value="DVD"  
+                            checked={this.state.format === "DVD"} 
+                            onChange={this.handleFormatChange} 
+                        />
+                        DVD
+                    </label>
+                    <label className="FilmEditor__radio-button">
+                        <input 
+                            type="radio" name="address" 
+                            value="Blu-Ray"  
+                            checked={this.state.format === "Blu-Ray"} 
+                            onChange={this.handleFormatChange} 
+                        />
+                        Blu-Ray
+                    </label>
+                    
+                    <textarea
+                        placeholder='Enter stars'
+                        rows={5}
+                        className='FilmEditor__text'
+                        value={this.state.starsString}
+                        onChange={this.handleStarsChange}
+                    />
+
+                    <div className='FilmEditor__footer'>
+                        <button
+                            className='FilmEditor__button'
+                            disabled={!this.state.title}
+                            onClick={this.handleFilmAdd}
+                        >
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div className="FilmEditor__right">
+                    <div className="FilmEditor__find-by-title">
+                        <input
+                            type='text'
+                            className='FilmEditor__title'
+                            placeholder='Enter title'
+                            value={this.state.findByTitle}
+                            onChange={this.handleFindByTitleChange}
                         />
                         <button
                             className='FilmEditor__button'
-                            disabled={false}
+                            disabled={!this.state.findByTitle}
                             onClick={this.handleFindByTitle}
                         >
                             Find by title
                         </button>
-                </div>
-                <div>
+                    </div>
+                    <div className="FilmEditor__find-by-stars">
                         <input
-                        type='text'
-                        className='FilmEditor__title'
-                        placeholder='Enter title'
-                        value={this.state.findByStars}
-                        onChange={this.handleFindByStarsChange}
+                            type='text'
+                            className='FilmEditor__title'
+                            placeholder='Enter stars'
+                            value={this.state.findByStars}
+                            onChange={this.handleFindByStarsChange}
                         />
                         <button
                             className='FilmEditor__button'
-                            disabled={false}
+                            disabled={!this.state.findByStars}
                             onClick={this.handleFindByStars}
                         >
                             Find by stars
                         </button>
-                </div>
-                <br/>
-                <div>
-                        <input type="file" onChange={this.handleFileUpload}/>
-                        <br/>
-                        {/*<button
-                            className='FilmEditor__button'
-                            disabled={false}
-                            onClick={this.handleFindByStars} //=========
-                        >
-                            Upload films
-                        </button>*/}
+                    </div>
+                    <br/>
+                    <div>
+                            
+                            {/*<label>
+                                <input className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload}/>
+                                Choose a file
+                            </label>*/}
+                            
+                            <label className="FilmEditor__file-label">
+                                <input  className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload} />    
+                                Choose a file to upload
+                            </label>
+                            {/*<input id="file"  className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload} />
+                            <label for="file">Choose a file</label>*/}
+                            <br/>
+                    </div>
                 </div>
             </div>
         );
