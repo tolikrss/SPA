@@ -17,10 +17,10 @@ const app = express();
 // configuring Multer to use files directory for storing files
 // this is important because later we'll need to access file path
 const storage = multer.diskStorage({
-  destination: './uploads',
-  filename(req, file, cb) {
-    cb(null, `${file.originalname}`);// cb(null, `${new Date()}-${file.originalname}`);
-  },
+    destination: './uploads',
+    filename(req, file, cb) {
+        cb(null, `${file.originalname}`); // cb(null, `${new Date()}-${file.originalname}`);
+    },
 });
 
 const upload = multer({ storage });
@@ -71,49 +71,56 @@ app.post('/films', (req, res) => {
 
 
 app.post('/upload', upload.single('file'), (req, res) => {
-     console.log('app.post worked');
- const file = req.file; // file passed from client
- const meta = req.body; // all other values passed from the client, like name, etc..
- 
-console.log(meta);
-console.log(file);
-        fs.writeFile('hello.txt', file, function(error) {
-            if(error) throw error; // если возникла ошибка
-            console.log("Асинхронная запись файла завершена. Содержимое файла:");
-                var data = fs.readFileSync("hello.txt", "utf8");
-                console.log(data);  // выводим считанные данные
+    console.log('app.post worked');
+    const file = req.file; // file passed from client
+    const meta = req.body; // all other values passed from the client, like name, etc..
+
+    fs.readFile(`uploads/${file.originalname}`, function(err, data) {
+        if (err) throw err;
+
+        var arrayStr = data.toString().split("\r\n\r\n");
+        var arrayObj = [];
+
+        for (var i = 0; i < arrayStr.length; i++) {
+            arrayStr[i] = arrayStr[i].split("\r\n");
+        }
+        var i = 0;
+        while (i < arrayStr.length) {
+            while (arrayStr[i].indexOf("") !== -1) {
+                arrayStr[i].splice(arrayStr[i].indexOf(""), 1);
+            }
+            if (arrayStr[i].length === 0) {
+                arrayStr.splice(i, 1);
+            } else {
+                i++;
+            }
+        }
+        arrayStr.forEach(function(elem, i, array) {
+            console.log("elem number - " + i);
+            console.log(elem);
+        });
+        arrayStr.forEach(function(elem, i, array) {
+            let elemArrayObj = {};
+            let arrayStars = [];
+            elemArrayObj.title = elem[0].substring(7);
+            elemArrayObj.releaseYear = elem[1].substring(14);
+            elemArrayObj.format = elem[2].substring(8);
+            arrayStars = elem[3].substring(7).split(', ');
+            elemArrayObj.stars = arrayStars;
+            arrayObj.push(elemArrayObj);
+        });
+        arrayObj.forEach(function(elem, i, array) {
+            console.log("elem number - " + i);
+            console.log(elem);
         });
 
-    // send the data to our REST API
+        // arrayObj.forEach(function(elem, i, array) {
+        //     db.createFilm(elem);
+        // });
+        // res.send("Success");
+        db.uploadFilms(arrayObj).then((data) => res.send(data));
+    });
 });
-
-// upload, that works
-// app.post('/upload', function(req, res) {
-//     // create an incoming form object
-//     var form = new formidable.IncomingForm();
-//     // specify that we want to allow the user to upload multiple files in a single request
-//     form.multiples = true;
-//     // store all uploads in the /uploads directory
-//     form.uploadDir = path.join(__dirname, '/uploads');
-//     // every time a file has been uploaded successfully,
-//     // rename it to it's orignal name
-//     form.on('file', function(field, file) {
-//         fs.rename(file.path, path.join(form.uploadDir, file.name));
-//         console.log(file.path);
-//     });
-
-//     // log any errors that occur
-//     form.on('error', function(err) {
-//         console.log('An error has occured: \n' + err);
-//     });
-//     // once all the files have been uploaded, send a response to the client
-//     form.on('end', function() {
-//         res.end('success');
-//     });
-//     // parse the incoming request containing the form data
-//     form.parse(req);
-// });
-// upload, that works
 
 app.delete('/films/:id', (req, res) => {
     db.deleteFilm(req.params.id).then((data) => res.send(data));

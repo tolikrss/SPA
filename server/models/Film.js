@@ -9,4 +9,4 @@ const FilmSchema = new Schema({
     stars: { type: Array }
 });
 
-const Film = mongoose.model('Film', FilmSchema)
+const Film = mongoose.model('Film', FilmSchema);
