@@ -113,11 +113,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
             console.log("elem number - " + i);
             console.log(elem);
         });
-
-        // arrayObj.forEach(function(elem, i, array) {
-        //     db.createFilm(elem);
-        // });
-        // res.send("Success");
         db.uploadFilms(arrayObj).then((data) => res.send(data));
     });
 });
