@@ -41,12 +41,10 @@ const App = React.createClass({
     },
 
     handleFindFilmByTitle(title) {
-        console.log('handleFindFilmByTitle in app.jsx worked. title - ' + title)
         FilmsActions.findFilmByTitle(title);
     },
 
     handleFindFilmByStars(stars) {
-        console.log('handleFindFilmByStars in app.jsx worked. stars - ' + stars)
         FilmsActions.findFilmByStars(stars);
     },
 
@@ -55,11 +53,19 @@ const App = React.createClass({
         FilmsActions.uploadFile({ file, name });
     },
 
+    handleDeleteAllFilms() {
+        FilmsActions.deleteAllFilms();
+    },
+    
+    handleRefresh() {
+        FilmsActions.refreshList();
+    },
+
     render() {
         return (
             <div className='App'>
                 <h2 className='App__header'>FilmsApp</h2>
-                <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest}/>
+                <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
                 <FilmsGrid films={this.state.films} onFilmDelete={this.handleFilmDelete} />
             </div>
         );

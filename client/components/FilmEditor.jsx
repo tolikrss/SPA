@@ -13,8 +13,16 @@ const FilmEditor = React.createClass({
             findByStars: ''
         };
     },
+    
+    handleRefresh() {
+        this.props.onRefresh();
+    },
 
-    handleFileUpload(e) { //{ file }
+    handleDeleteAllFilms() {
+        this.props.onDeleteAllFilms();
+    },
+
+    handleFileUpload(e) {
         console.log('handleFileUpload() in FilmEditor.jsx worked');
         const file = e.target.files[0];
         this.props.onUploadRequest({
@@ -22,6 +30,7 @@ const FilmEditor = React.createClass({
             name: 'Awesome Cat Pic'
         })
     },
+    
     handleFindByStars() {
         const stars = this.state.findByStars;
         this.props.onFindByStars(stars);
@@ -65,7 +74,6 @@ const FilmEditor = React.createClass({
             format: this.state.format,
             stars: this.state.starsString.split(',')
         };
-        console.log('handleFilmAdd() from FilmEditor.jsx worked');
         this.props.onFilmAdd(newFilm);
         this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
     },
@@ -95,7 +103,7 @@ const FilmEditor = React.createClass({
                             checked={this.state.format === "VHS"} 
                             onChange={this.handleFormatChange} 
                         />
-                        VHS
+                            VHS
                     </label>
                     <label className="FilmEditor__radio-button">
                         <input 
@@ -104,7 +112,7 @@ const FilmEditor = React.createClass({
                             checked={this.state.format === "DVD"} 
                             onChange={this.handleFormatChange} 
                         />
-                        DVD
+                            DVD
                     </label>
                     <label className="FilmEditor__radio-button">
                         <input 
@@ -113,7 +121,7 @@ const FilmEditor = React.createClass({
                             checked={this.state.format === "Blu-Ray"} 
                             onChange={this.handleFormatChange} 
                         />
-                        Blu-Ray
+                            Blu-Ray
                     </label>
                     
                     <textarea
@@ -130,7 +138,8 @@ const FilmEditor = React.createClass({
                             disabled={!this.state.title}
                             onClick={this.handleFilmAdd}
                         >
-                            Add
+                        <i className="fa fa-plus" aria-hidden="true"></i>
+                            Add film
                         </button>
                     </div>
                 </div>
@@ -148,9 +157,11 @@ const FilmEditor = React.createClass({
                             disabled={!this.state.findByTitle}
                             onClick={this.handleFindByTitle}
                         >
+                        <i className="fa fa-search" aria-hidden="true"></i>
                             Find by title
                         </button>
                     </div>
+                    <br/>
                     <div className="FilmEditor__find-by-stars">
                         <input
                             type='text'
@@ -164,24 +175,32 @@ const FilmEditor = React.createClass({
                             disabled={!this.state.findByStars}
                             onClick={this.handleFindByStars}
                         >
+                        <i className="fa fa-search" aria-hidden="true"></i>
                             Find by stars
                         </button>
                     </div>
-                    <br/>
                     <div>
-                            
-                            {/*<label>
-                                <input className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload}/>
-                                Choose a file
-                            </label>*/}
-                            
-                            <label className="FilmEditor__file-label">
-                                <input  className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload} />    
+                        <label className="FilmEditor__file-label">
+                            <input  className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload} />    
+                            <i className="fa fa-upload" aria-hidden="true"></i>
                                 Choose a file to upload
-                            </label>
-                            {/*<input id="file"  className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload} />
-                            <label for="file">Choose a file</label>*/}
-                            <br/>
+                        </label>
+                    </div>
+                    <div className="FilmEditor__additional-functions">
+                        <button
+                            className='FilmEditor__clear-database__button'
+                            onClick={this.handleDeleteAllFilms}
+                        >
+                        <i className="fa fa-window-close" aria-hidden="true"></i>
+                            Delete all films
+                        </button>
+                        <button
+                            className='FilmEditor__refresh-list__button'
+                            onClick={this.handleRefresh}
+                        >
+                        <i className="fa fa-refresh" aria-hidden="true"></i>
+                            Refresh list (show all)
+                        </button>
                     </div>
                 </div>
             </div>

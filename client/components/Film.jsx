@@ -12,28 +12,28 @@ const Film = React.createClass({
                 {
                     this.props.title
                     ?
-                        <h4 className='Film__title'>Title: {this.props.title}</h4>
+                        <div className='Film__title'><span className='title'>Title:</span> <span className='content'>{this.props.title}</span></div>
                     :
                         null
                 }
                 {
                     this.props.releaseYear
                     ?
-                        <h4 className='Film__title'>Release Year: {this.props.releaseYear}</h4>
+                        <div className='Film__releaseYear'><span className='title'>Release Year:</span> <span className='content'>{this.props.releaseYear}</span></div>
                     :
                         null
                 }
                 {
                     this.props.format
                     ?
-                        <h4 className='Film__title'>Format: {this.props.format}</h4>
+                        <div className='Film__format'><span className='title'>Format:</span> <span className='content'>{this.props.format}</span></div>
                     :
                         null
                 }
                 {
                     this.props.format
                     ?
-                        <h4 className='Film__title'>Stars: {this.props.stars.join(', ')}</h4>
+                        <div className='Film__stars'><span className='title'>Stars:</span> <span className='content'>{this.props.stars.join(', ')}</span></div>
                     :
                         null
                 }

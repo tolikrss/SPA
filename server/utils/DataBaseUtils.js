@@ -6,23 +6,23 @@ import config from '../../etc/config.json';
 
 const Film = mongoose.model('Film');
 
-export function setUpConnection() { //подключение к БД
+export function setUpConnection() { 
     mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
 }
 
-export function listFilms() { //получить список всех фильмов
-    return Film.find().sort({ title: 1 }); //return Film.find(); //work
-} //=====================================================================
+export function listFilms() { 
+    return Film.find().sort({ title: 1 }); 
+} 
 
-export function listFilmsFindTitle(param) { //получить список всех фильмов c поисковым параметром param, localhost:8080/films/test (test-поисковый параметр)
-    return Film.find({ title: { $regex: param } }).sort({ title: 1 }); //title: /^Antonio$/i
-} //=====================================================================
+export function listFilmsFindTitle(param) { 
+    return Film.find({ title: { $regex: param } }).sort({ title: 1 }); 
+} 
 
 export function listFilmsFindStars(param) {
     return Film.find({ stars: { $regex: param } }).sort({ title: 1 });
-} //=====================================================================
+} 
 
-export function createFilm(data) { //добавить фильм в базу
+export function createFilm(data) { 
     const film = new Film({
         title: data.title,
         releaseYear: data.releaseYear,
@@ -30,10 +30,10 @@ export function createFilm(data) { //добавить фильм в базу
         stars: data.stars
     });
 
-    return film.save(); //сохранение в базу
+    return film.save(); 
 }
 
-export function uploadFilms(films) { //добавить фильм в базу
+export function uploadFilms(films) { 
 
     for (var i = 0; i < films.length - 1; i++) {
         const film = new Film({
@@ -52,11 +52,15 @@ export function uploadFilms(films) { //добавить фильм в базу
         stars: films[films.length - 1].stars
     });
 
-    return film.save(); //сохранение в базу
+    return film.save(); 
 }
 
-export function deleteFilm(id) { //удаление фильма
+export function deleteFilm(id) { 
     return Film.findById(id).remove();
 }
 
-//если базы нет созданой, то при запросе она создастся
+export function deleteAllFilms() { 
+    return Film.remove({});
+}
+
+//если нет созданой базы, то при запросе она создастся

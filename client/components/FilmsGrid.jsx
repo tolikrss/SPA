@@ -9,8 +9,8 @@ const FilmsGrid = React.createClass({
     render() {
         const masonryOptions = {
             itemSelector: '.Film',
-            columnWidth: 1000,
-            gutter: 10,
+            columnWidth: 1400,
+            gutter: 5,
             isFitWidth: true
         };
 
@@ -29,7 +29,6 @@ const FilmsGrid = React.createClass({
                             stars={film.stars}
                             onDelete={this.props.onFilmDelete.bind(null, film)}
                         >
-                            {/*{film.text}*/}
                         </Film>
                     )
                 }

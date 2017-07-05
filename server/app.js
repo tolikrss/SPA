@@ -1,8 +1,7 @@
 import express from 'express';
-import bodyParser from 'body-parser'; //преобразование данных
-import fs from 'fs'; // node.js api, будет использовано для работы с файлами
+import bodyParser from 'body-parser'; 
+import fs from 'fs'; 
 import path from 'path';
-import formidable from 'formidable'; // formidable will parse the incoming form data (the uploaded files)
 import axios from 'axios';
 import multer from 'multer';
 
@@ -14,43 +13,26 @@ db.setUpConnection();
 
 const app = express();
 
-// configuring Multer to use files directory for storing files
-// this is important because later we'll need to access file path
 const storage = multer.diskStorage({
     destination: './uploads',
     filename(req, file, cb) {
-        cb(null, `${file.originalname}`); // cb(null, `${new Date()}-${file.originalname}`);
+        cb(null, `${file.originalname}`);
     },
 });
 
 const upload = multer({ storage });
 
-app.use(bodyParser.json()); // промежуточный обработчик данных
-// каждый раз, когда будет приходить запрос, то что пришло в риквесте
-// и преобразует в обычний вид (обьект)
-// и тогда будут вызыватся наши обработчики запросов get, post, delete
-// Add headers
+app.use(bodyParser.json());
 app.use(function(req, res, next) {
-
-    // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
     next();
 });
 
-app.get('/', function(req, res) { //we'll create a route which will serve up the homepage (index.html) when someone visits the website:
-    res.sendFile(path.join(__dirname, '../build/index.html'));
+app.get('/', function(req, res) { 
+    res.send("Api server works!");
 });
 
 app.get('/films', (req, res) => {
@@ -96,10 +78,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
             }
         }
         arrayStr.forEach(function(elem, i, array) {
-            console.log("elem number - " + i);
-            console.log(elem);
-        });
-        arrayStr.forEach(function(elem, i, array) {
             let elemArrayObj = {};
             let arrayStars = [];
             elemArrayObj.title = elem[0].substring(7);
@@ -109,16 +87,16 @@ app.post('/upload', upload.single('file'), (req, res) => {
             elemArrayObj.stars = arrayStars;
             arrayObj.push(elemArrayObj);
         });
-        arrayObj.forEach(function(elem, i, array) {
-            console.log("elem number - " + i);
-            console.log(elem);
-        });
         db.uploadFilms(arrayObj).then((data) => res.send(data));
     });
 });
 
 app.delete('/films/:id', (req, res) => {
     db.deleteFilm(req.params.id).then((data) => res.send(data));
+});
+
+app.delete('/films', (req, res) => {
+    db.deleteAllFilms().then((data) => res.send(data));
 });
 
 const server = app.listen(serverPort, () => {

@@ -19,7 +19,6 @@
     "events": "^1.1.0",
     "express": "*",
     "flux": "^2.1.1",
-    "formidable": "^1.1.1",
     "jquery": "*",
     "keymirror": "^0.1.1",
     "less": "^2.6.0",

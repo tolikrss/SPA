@@ -4,12 +4,23 @@ import Constants from '../constants/AppConstants';
 import api from '../api';
 
 const FilmActions = {
+
+    deleteAllFilms() {
+        api.clearDB()
+            .then(() => 
+                this.loadFilms()
+            )
+            .catch((err) =>
+                console.error(err)
+            );
+    },
+
     uploadFile({ file, name }) {
         api.uploadFile({ file, name }) 
-            .then(() =>
-                console.log('uploadFile() from FilmActions.js without error. name - ' + name)
+            .then(() => 
+                this.loadFilms()
             )
-            .catch(err =>
+            .catch((err) =>
                 console.error(err)
             );
     },
@@ -45,7 +56,6 @@ const FilmActions = {
     },
 
     findFilmByTitle(title) {
-        console.log('findFilmByTitle in FilmsActions.js worked. title - ' + title);
         api.listFindByTitleFilms(title)
             .then(({ data }) =>
                 AppDispatcher.dispatch({
@@ -62,7 +72,6 @@ const FilmActions = {
     },
 
     findFilmByStars(stars) {
-        console.log('findFilmByStars in FilmsActions.js worked. stars - ' + stars);
         api.listFindByStarsFilms(stars)
             .then(({ data }) =>
                 AppDispatcher.dispatch({
@@ -86,6 +95,10 @@ const FilmActions = {
             .catch(err =>
                 console.error(err)
             );
+    },
+
+    refreshList() {
+        this.loadFilms()
     }
 };
 
