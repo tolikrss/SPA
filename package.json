@@ -4,7 +4,8 @@
   "description": "films application",
   "scripts": {
     "server": "babel-node server/app.js",
-    "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0"
+    "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0",
+    "deploy": "webpack -p --config webpack.config.js"
   },
   "author": {
     "name": "Anatoliy Lakhno",
