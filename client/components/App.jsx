@@ -49,7 +49,6 @@ const App = React.createClass({
     },
 
     handleUploadRequest(file) {
-        console.log('handleUploadRequest in app.jsx worked. name - ' + name);
         FilmsActions.uploadFile(file);
     },
 

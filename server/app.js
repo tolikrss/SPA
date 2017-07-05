@@ -53,7 +53,6 @@ app.post('/films', (req, res) => {
 
 
 app.post('/upload', upload.single('file'), (req, res) => {
-    console.log('app.post worked');
     const file = req.file; // file passed from client
     const meta = req.body; // all other values passed from the client, like name, etc..
 
