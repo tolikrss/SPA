@@ -7,10 +7,9 @@ export default {
         return axios.delete(`${apiPrefix}/films`);
     },
 
-    uploadFile({ file, name }) {
+    uploadFile(file) {
         let data = new FormData();
         data.append('file', file);
-        data.append('name', name);
         return axios.post(`${apiPrefix}/upload`, data);
     },
 

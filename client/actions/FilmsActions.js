@@ -15,8 +15,8 @@ const FilmActions = {
             );
     },
 
-    uploadFile({ file, name }) {
-        api.uploadFile({ file, name }) 
+    uploadFile(file) {
+        api.uploadFile(file) 
             .then(() => 
                 this.loadFilms()
             )

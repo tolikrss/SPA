@@ -25,10 +25,7 @@ const FilmEditor = React.createClass({
     handleFileUpload(e) {
         console.log('handleFileUpload() in FilmEditor.jsx worked');
         const file = e.target.files[0];
-        this.props.onUploadRequest({
-            file,
-            name: 'Awesome Cat Pic'
-        })
+        this.props.onUploadRequest(file);
     },
     
     handleFindByStars() {

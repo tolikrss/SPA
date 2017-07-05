@@ -48,9 +48,9 @@ const App = React.createClass({
         FilmsActions.findFilmByStars(stars);
     },
 
-    handleUploadRequest({ file, name }) {
+    handleUploadRequest(file) {
         console.log('handleUploadRequest in app.jsx worked. name - ' + name);
-        FilmsActions.uploadFile({ file, name });
+        FilmsActions.uploadFile(file);
     },
 
     handleDeleteAllFilms() {
